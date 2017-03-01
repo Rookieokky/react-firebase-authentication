@@ -5,9 +5,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = {
   devtool: 'eval-source-map',
   entry: [
+    'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    'react-hot-loader/patch',
     './src/index.js'
   ],
   output: {
@@ -15,19 +15,18 @@ var config = {
     filename: '[name].js',
     publicPath: '/'
   },
-  eslint: {
-    configFile: '.eslintrc',
-    failOnWarning: false,
-    failOnError: false
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
       inject: 'body'
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin()
   ],
   module: {
     loaders: [
