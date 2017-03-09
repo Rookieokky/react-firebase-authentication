@@ -6,8 +6,8 @@ var config = {
   devtool: 'eval-source-map',
   entry: [
     // 'react-hot-loader/patch',
-    // 'webpack-dev-server/client?http://localhost:3000',
-    // 'webpack/hot/only-dev-server',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
     './src/index.js'
   ],
   output: {
@@ -36,6 +36,10 @@ var config = {
       { test: /\.(eot|svg|ttf|woff|woff2)$/, loader: 'file-loader?name=public/fonts/[name].[ext]' }
     ]
   },
+  devServer: {
+    hot: true, //HMR enabled
+    contentBase: './src'
+  }
 };
 
 module.exports = config;
